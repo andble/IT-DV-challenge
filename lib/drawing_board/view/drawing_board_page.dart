@@ -45,20 +45,40 @@ class _DrawingBoardViewState extends State<DrawingBoardView> {
   Widget build(BuildContext context) {
     return Provider.value(
       value: _controller,
-      child: const Scaffold(
-        backgroundColor: Colors.grey,
+      child: Scaffold(
+        backgroundColor: Colors.black,
         body: SafeArea(
           child: Stack(
             children: [
-              AppDrawingBoard(),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  _Name(),
-                  _SaveButton(),
-                  _DeleteButton(),
-                  _ColorSelectionButton(),
-                ],
+              const AppDrawingBoard(),
+              Positioned(
+                top: 0,
+                left: 0,
+                right: 0,
+                child: Container(
+                  padding: const EdgeInsets.all(10),
+                  color: Colors.black,
+                  child: const Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      _Name(),
+                      Padding(
+                        padding: EdgeInsets.only(
+                          right: 40,
+                        ), // Increase right padding
+                        child: Row(
+                          mainAxisSize: MainAxisSize
+                              .min, // Makes the row only as wide as its children
+                          children: [
+                            _SaveButton(),
+                            _DeleteButton(),
+                            _ColorSelectionButton(),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ),
             ],
           ),
