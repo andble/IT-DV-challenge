@@ -57,9 +57,6 @@ class __HomePageState extends State<_HomePage> {
             ),
           )
         : Scaffold(
-            appBar: AppBar(
-              title: const Text('Drawing Board'),
-            ),
             body: const DrawingBoardPage(),
           );
   }

@@ -20,6 +20,14 @@ class Drawing extends Equatable {
             .toList(),
       );
 
+  Drawing copyWithName(String newName) {
+    return Drawing(
+      name: newName,
+      color: color,
+      jsonList: jsonList,
+    );
+  }
+
   final String name;
   final Color color;
   final List<Map<String, dynamic>> jsonList;
