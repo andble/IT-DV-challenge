@@ -39,6 +39,7 @@ class AppDrawingBoard extends StatelessWidget {
           color: Colors.white,
         ),
         showDefaultTools: true,
+        showDefaultActions: true,
       ),
     );
   }
