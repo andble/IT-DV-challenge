@@ -34,8 +34,8 @@ class AppDrawingBoard extends StatelessWidget {
       child: DrawingBoard(
         controller: controller,
         background: Container(
-          width: 500,
-          height: 500,
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height,
           color: Colors.white,
         ),
         showDefaultTools: true,
