@@ -52,4 +52,18 @@ class DrawingBoardCubit extends Cubit<DrawingBoardState> {
     final updatedDrawing = state.drawing.copyWith(color: color,);
     emit(state.copyWith(drawing: updatedDrawing));
   }
+
+  void changeName(String newName) {
+    final updatedDrawing = state.drawing.copyWith(
+      name: newName,
+    );
+
+    _repository.save(updatedDrawing);
+
+    emit(
+      state.copyWith(
+        drawing: updatedDrawing,
+      ),
+    );
+  }
 }

@@ -97,7 +97,18 @@ class _Name extends StatelessWidget {
       (DrawingBoardCubit cubit) => cubit.state.drawing.name,
     );
 
-    return Text(drawingName);
+    final controller = TextEditingController(text: drawingName);
+
+    return IntrinsicWidth(
+      stepWidth: 50,
+      child: TextField(
+        style: const TextStyle(color: Colors.white),
+        controller: controller,
+        onSubmitted: (name) => {
+          context.read<DrawingBoardCubit>().changeName(name),
+        },
+      ),
+    );
   }
 }
 
