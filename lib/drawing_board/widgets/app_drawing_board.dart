@@ -10,7 +10,7 @@ class AppDrawingBoard extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = context.watch<DrawingController>();
 
-    final size = MediaQuery.of(context).size;
+    final contextSize = MediaQuery.of(context).size;
 
     return MultiBlocListener(
       listeners: [
@@ -36,8 +36,8 @@ class AppDrawingBoard extends StatelessWidget {
       child: DrawingBoard(
         controller: controller,
         background: Container(
-          width: size.width,
-          height: size.height,
+          width: contextSize.width,
+          height: contextSize.height,
           color: Colors.white,
         ),
         showDefaultTools: true,
