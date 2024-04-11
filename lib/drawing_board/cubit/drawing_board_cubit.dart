@@ -57,4 +57,17 @@ class DrawingBoardCubit extends Cubit<DrawingBoardState> {
       ),
     );
   }
+
+  Future<void> updateDrawingName(String name) async {
+    final updateName = state.drawing.copyWith(name: name);
+
+    emit(
+      state.copyWith(
+        drawing: updateName,
+      ),
+    );
+  }
+
+
+
 }
