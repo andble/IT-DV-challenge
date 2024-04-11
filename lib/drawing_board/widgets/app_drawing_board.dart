@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_drawing_board/flutter_drawing_board.dart';
 
-
-
 class CustomBrushTool extends StatelessWidget {
+  const CustomBrushTool({super.key});
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -15,12 +15,12 @@ class CustomBrushTool extends StatelessWidget {
         // You can perform any custom action here, such as changing the drawing mode, selecting a specific brush, etc.
       },
       child: Container(
-        padding: EdgeInsets.all(8),
+        padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
           color: Colors.blue, // Customize color as needed
           borderRadius: BorderRadius.circular(8), // Add rounded corners
         ),
-        child: Icon(
+        child: const Icon(
           Icons.brush, // Use an icon to represent the tool
           color: Colors.white, // Customize icon color
           size: 24, // Customize icon size
@@ -43,13 +43,16 @@ class AppDrawingBoard extends StatelessWidget {
           listenWhen: (previous, current) =>
               !previous.status.isSuccess && current.status.isSuccess,
           listener: (context, state) {
+            print('hejsan');
             final drawing = state.drawing;
             controller
               ..addContents(drawing.contents)
-              ..setStyle(color: drawing.color,
-              strokeWidth: 3.0, // Example: Set the stroke width to 3.0
-              blendMode: BlendMode.multiply, // Example: Set the blend mode to multiply
-            );
+              ..setStyle(
+                color: drawing.color,
+                strokeWidth: 3, // Example: Set the stroke width to 3.0
+                blendMode: BlendMode
+                    .multiply, // Example: Set the blend mode to multiply
+              );
           },
         ),
         BlocListener<DrawingBoardCubit, DrawingBoardState>(
@@ -66,7 +69,6 @@ class AppDrawingBoard extends StatelessWidget {
         background: Container(
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
-          
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(15),
