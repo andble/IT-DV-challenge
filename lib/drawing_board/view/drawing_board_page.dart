@@ -67,8 +67,15 @@ class _DrawingBoardViewState extends State<DrawingBoardView> {
   }
 }
 
-class _Name extends StatelessWidget {
+class _Name extends StatefulWidget {
   const _Name();
+
+  @override
+  _NameState createState() => _NameState();
+}
+
+class _NameState extends State<_Name> {
+  bool _isHovered = false;
 
   @override
   Widget build(BuildContext context) {
@@ -80,12 +87,15 @@ class _Name extends StatelessWidget {
       onTap: () {
         _showNameInputDialog(context);
       },
-      child: Text(
-        drawingName,
-        style: const TextStyle(
-          fontSize: 24,
-          decoration: TextDecoration
-              .underline, // Optional: Add underline to indicate it's clickable
+      child: MouseRegion(
+        onEnter: (_) => setState(() => _isHovered = true),
+        onExit: (_) => setState(() => _isHovered = false),
+        child: Text(
+          drawingName,
+          style: TextStyle(
+            fontSize: 24,
+            color: _isHovered ? Color.fromARGB(255, 54, 131, 35) : Colors.black,
+          ),
         ),
       ),
     );
