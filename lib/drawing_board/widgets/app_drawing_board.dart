@@ -40,6 +40,7 @@ class AppDrawingBoard extends StatelessWidget {
         ),
         showDefaultTools: true,
         showDefaultActions: true,
+        boardClipBehavior: Clip.none,
       ),
     );
   }
