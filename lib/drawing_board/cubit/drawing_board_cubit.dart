@@ -14,8 +14,8 @@ class DrawingBoardCubit extends Cubit<DrawingBoardState> {
   final DrawingRepository _repository;
 
   Future<void> loadDrawing() async {
+    emit(state.copyWith(status: Status.loading));
     final drawing = await _repository.load();
-
     emit(
       state.copyWith(
         status: Status.success,

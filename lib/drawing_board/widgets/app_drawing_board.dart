@@ -33,14 +33,24 @@ class AppDrawingBoard extends StatelessWidget {
           },
         ),
       ],
-      child: DrawingBoard(
-        controller: controller,
-        background: Container(
-          width: contextSize.width,
-          height: contextSize.height,
-          color: Colors.white,
-        ),
-        showDefaultTools: true,
+      child: BlocBuilder<DrawingBoardCubit, DrawingBoardState>(
+        builder: (context, state) {
+          if (state.status.isLoading) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          } else {
+            return DrawingBoard(
+              controller: controller,
+              background: Container(
+                width: contextSize.width,
+                height: contextSize.height,
+                color: Colors.white,
+              ),
+              showDefaultTools: true,
+            );
+          }
+        },
       ),
     );
   }
