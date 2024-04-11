@@ -76,8 +76,59 @@ class _Name extends StatelessWidget {
       (DrawingBoardCubit cubit) => cubit.state.drawing.name,
     );
 
-    return Text(drawingName);
+    return GestureDetector(
+      onTap: () {
+        // Define what should happen when the name is tapped
+        // For example, you can navigate to a new screen, show a dialog, etc.
+        _showNameInputDialog(context);
+
+        //BlocProvider.of<DrawingBoardCubit>(context).updateDrawingName('Changed name');
+        //print('Name tapped!');
+      },
+      child: Text(
+        drawingName,
+        style: const TextStyle(
+          decoration: TextDecoration
+              .underline, // Optional: Add underline to indicate it's clickable
+        ),
+      ),
+    );
   }
+}
+
+// Function to show input dialog
+void _showNameInputDialog(BuildContext context) {
+  showDialog<String>(
+    context: context, // Provide the context parameter
+    builder: (_) {
+      var newName = '';
+      return AlertDialog(
+        title: const Text('Change Name'),
+        content: TextField(
+          onChanged: (value) {
+            newName = value;
+          },
+          decoration: const InputDecoration(hintText: 'Enter new name'),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: const Text('Cancel'),
+          ),
+          TextButton(
+            onPressed: () {
+              BlocProvider.of<DrawingBoardCubit>(context)
+                  .updateDrawingName(newName);
+              Navigator.pop(context);
+            },
+            child: const Text('OK'),
+          ),
+        ],
+      );
+    },
+  );
 }
 
 class _SaveButton extends StatelessWidget {
