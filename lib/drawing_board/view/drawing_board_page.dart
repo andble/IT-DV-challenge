@@ -56,6 +56,7 @@ class _DrawingBoardViewState extends State<DrawingBoardView> {
                 children: [
                   _Name(),
                   _SaveButton(),
+                  _DeleteButton(),
                   _ColorSelectionButton(),
                 ],
               ),
@@ -94,6 +95,23 @@ class _SaveButton extends StatelessWidget {
             );
       },
       icon: const Icon(Icons.save),
+    );
+  }
+}
+
+class _DeleteButton extends StatelessWidget {
+  const _DeleteButton();
+
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+      onPressed: () {
+        // Delete the drawing from the database
+        context.read<DrawingBoardCubit>().delete();
+        // Clear the drawing from the drawing board
+        context.read<DrawingController>().clear();
+      },
+      icon: const Icon(Icons.delete),
     );
   }
 }
