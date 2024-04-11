@@ -49,6 +49,12 @@ class DrawingBoardCubit extends Cubit<DrawingBoardState> {
   }
 
   Future<void> changeColor(Color color) async {
-    // TODO: Implement this
+    final updatedDrawing = state.drawing.copyWith(color: color);
+
+    emit(
+      state.copyWith(
+        drawing: updatedDrawing,
+      ),
+    );
   }
 }
