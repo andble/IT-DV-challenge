@@ -2,6 +2,8 @@ import 'package:as_drawingchallenge_flutter/drawing_board/drawing_board.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_drawing_board/flutter_drawing_board.dart';
+import 'package:flutter_drawing_board/paint_contents.dart';
+import 'package:flutter_drawing_board/paint_extension.dart';
 
 class AppDrawingBoard extends StatelessWidget {
   const AppDrawingBoard({super.key});
@@ -49,7 +51,97 @@ class AppDrawingBoard extends StatelessWidget {
                 jsonList: controller.getJsonList(),
               ),
         },
+        defaultToolsBuilder: (Type t, _) {
+          return DrawingBoard.defaultTools(t, controller)
+            ..insert(
+              /// Insert the triangle tool into the second position of the default toolbar
+              1,
+              DefToolItem(
+                icon: Icons.change_history_rounded,
+                isActive: t == Triangle,
+                onTap: () => controller.setPaintContent(Triangle()),
+              ),
+            );
+        },
       ),
     );
+  }
+}
+
+/// Custom drawing of a triangle
+class Triangle extends PaintContent {
+  Triangle();
+
+  Triangle.data({
+    required this.startPoint,
+    required this.A,
+    required this.B,
+    required this.C,
+    required Paint paint,
+  }) : super.paint(paint);
+
+  factory Triangle.fromJson(Map<String, dynamic> data) {
+    return Triangle.data(
+      startPoint: jsonToOffset(data['startPoint'] as Map<String, dynamic>),
+      A: jsonToOffset(data['A'] as Map<String, dynamic>),
+      B: jsonToOffset(data['B'] as Map<String, dynamic>),
+      C: jsonToOffset(data['C'] as Map<String, dynamic>),
+      paint: jsonToPaint(data['paint'] as Map<String, dynamic>),
+    );
+  }
+
+  Offset startPoint = Offset.zero;
+
+  Offset A = Offset.zero;
+  Offset B = Offset.zero;
+  Offset C = Offset.zero;
+
+  @override
+  void startDraw(Offset startPoint) => this.startPoint = startPoint;
+
+  @override
+  void drawing(Offset nowPoint) {
+    A = Offset(
+      startPoint.dx + (nowPoint.dx - startPoint.dx) / 2,
+      startPoint.dy,
+    );
+    B = Offset(startPoint.dx, nowPoint.dy);
+    C = nowPoint;
+  }
+
+  @override
+  void draw(Canvas canvas, Size size, bool deeper) {
+    final path = Path()
+      ..moveTo(A.dx, A.dy)
+      ..lineTo(B.dx, B.dy)
+      ..lineTo(C.dx, C.dy)
+      ..close();
+
+    canvas.drawPath(path, paint);
+  }
+
+  @override
+  Triangle copy() => Triangle();
+
+  @override
+  Map<String, dynamic> toJson() {
+    return <String, dynamic>{
+      'startPoint': startPoint.toJson(),
+      'A': A.toJson(),
+      'B': B.toJson(),
+      'C': C.toJson(),
+      'paint': paint.toJson(),
+    };
+  }
+
+  @override
+  Map<String, dynamic> toContentJson() {
+    return <String, dynamic>{
+      'startPoint': startPoint.toJson(),
+      'A': A.toJson(),
+      'B': B.toJson(),
+      'C': C.toJson(),
+      'paint': paint.toJson(),
+    };
   }
 }
