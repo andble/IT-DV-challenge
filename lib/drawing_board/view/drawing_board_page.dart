@@ -51,18 +51,29 @@ class _DrawingBoardViewState extends State<DrawingBoardView> {
       child: const Scaffold(
         backgroundColor: Color.fromARGB(255, 255, 255, 255),
         body: SafeArea(
-          child: Stack(
-            children: [
-              AppDrawingBoard(),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  _Name(),
-                  _SaveButton(),
-                  _ColorSelectionButton(),
-                ],
-              ),
-            ],
+          child: Container(
+            alignment: Alignment.center,
+            padding: EdgeInsets.all(
+              10,
+            ), // Optional: Add padding to the container
+            decoration: BoxDecoration(
+              // Adding BoxDecoration for rounded edges
+              color: Color.fromARGB(255, 231, 212, 212),
+              borderRadius: BorderRadius.circular(15), // Add rounded edges
+            ),
+            child: Stack(
+              children: [
+                AppDrawingBoard(),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    _Name(),
+                    _SaveButton(),
+                    _ColorSelectionButton(),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -79,7 +90,24 @@ class _Name extends StatelessWidget {
       (DrawingBoardCubit cubit) => cubit.state.drawing.name,
     );
 
-    return Text(drawingName);
+    return SizedBox(
+      width: 200, // Adjust the width as needed
+      child: Container(
+        padding: const EdgeInsets.fromLTRB(0, 10, 50, 0),
+        child: TextField(
+          onChanged: (newName) {
+            context.read<DrawingBoardCubit>().updateName(newName);
+          },
+          decoration: InputDecoration(
+            border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+            hintText: 'Name',
+            filled: true,
+            fillColor: Colors.white,
+            labelText: drawingName.isEmpty ? 'Drawing Name' : drawingName,
+          ),
+        ),
+      ),
+    );
   }
 }
 
@@ -90,13 +118,13 @@ class _SaveButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = context.watch<DrawingController>();
 
-    return IconButton(
+    return ElevatedButton(
       onPressed: () {
         context.read<DrawingBoardCubit>().save(
               jsonList: controller.getJsonList(),
             );
       },
-      icon: const Icon(Icons.save),
+      child: const Icon(Icons.save),
     );
   }
 }
@@ -120,14 +148,14 @@ class _ColorSelectionButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return IconButton(
+    return ElevatedButton(
       onPressed: () {
         ColorSelectionDialog.show(
           context: context,
           drawingBoardCubit: context.read<DrawingBoardCubit>(),
         );
       },
-      icon: const Icon(Icons.palette),
+      child: const Icon(Icons.palette),
     );
   }
 }
