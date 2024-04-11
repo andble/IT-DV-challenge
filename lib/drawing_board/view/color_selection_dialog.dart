@@ -59,8 +59,10 @@ class _Dropdown extends StatelessWidget {
             ),
           ),
       ],
-      onChanged: (color) {
-        // TODO: Implement this
+      onChanged: (colorValue) {
+        final newColor = ColorSelection.colors
+            .firstWhere((color) => color.value == colorValue);
+        context.read<DrawingBoardCubit>().changeColor(newColor);
       },
     );
   }
