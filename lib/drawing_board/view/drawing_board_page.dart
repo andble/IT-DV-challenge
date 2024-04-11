@@ -103,6 +103,14 @@ class _Name extends StatelessWidget {
       stepWidth: 50,
       child: TextField(
         style: const TextStyle(color: Colors.white),
+        decoration: const InputDecoration(
+          hoverColor: Color.fromARGB(255, 58, 57, 57),
+          focusColor: Color.fromARGB(255, 58, 57, 57),
+          fillColor: Colors.black,
+          filled: true,
+          focusedBorder: InputBorder.none,
+          enabledBorder: InputBorder.none,
+        ),
         controller: controller,
         onSubmitted: (name) => {
           context.read<DrawingBoardCubit>().changeName(name),
