@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:as_drawingchallenge_flutter/drawing_board/drawing_board.dart';
 import 'package:as_drawingchallenge_flutter/drawing_repository/drawing_repository.dart';
 import 'package:flutter/material.dart';
@@ -31,37 +33,54 @@ class DrawingBoardView extends StatefulWidget {
 
 class _DrawingBoardViewState extends State<DrawingBoardView> {
   late final DrawingController _controller;
+  Timer? _autoSaveTimer;
 
   @override
   void initState() {
     super.initState();
     _controller = DrawingController();
+    //_startAutoSave();
   }
 
   @override
   void dispose() {
+    _autoSaveTimer?.cancel();
     _controller.dispose();
     super.dispose();
+  }
+
+  void _startAutoSave() {
+    _autoSaveTimer = Timer.periodic(const Duration(seconds: 10), (timer) {
+      print('test');
+      _simulateAutoSave(); // Simulate button press for auto-save
+    });
+  }
+
+  void _simulateAutoSave() {
+    final controller = context.read<DrawingController>();
+    context.read<DrawingBoardCubit>().save(
+          jsonList: controller.getJsonList(),
+        );
   }
 
   @override
   Widget build(BuildContext context) {
     return Provider.value(
       value: _controller,
-      child: const Scaffold(
-        backgroundColor: Color.fromARGB(255, 255, 255, 255),
+      child: Scaffold(
+        backgroundColor: const Color.fromARGB(255, 255, 255, 255),
         body: SafeArea(
           child: Container(
             alignment: Alignment.center,
-            padding: EdgeInsets.all(
+            padding: const EdgeInsets.all(
               10,
             ), // Optional: Add padding to the container
             decoration: BoxDecoration(
               // Adding BoxDecoration for rounded edges
-              color: Color.fromARGB(255, 231, 212, 212),
+              color: const Color.fromARGB(255, 231, 212, 212),
               borderRadius: BorderRadius.circular(15), // Add rounded edges
             ),
-            child: Stack(
+            child: const Stack(
               children: [
                 AppDrawingBoard(),
                 Row(

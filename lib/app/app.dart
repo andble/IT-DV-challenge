@@ -1,11 +1,11 @@
 import 'dart:async';
 
-import 'package:as_drawingchallenge_flutter/drawing_board/cubit/drawing_board_cubit.dart';
+//import 'package:as_drawingchallenge_flutter/drawing_board/cubit/drawing_board_cubit.dart';
 import 'package:as_drawingchallenge_flutter/drawing_board/view/drawing_board_page.dart';
 import 'package:as_drawingchallenge_flutter/drawing_repository/drawing_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_drawing_board/flutter_drawing_board.dart';
+//import 'package:flutter_drawing_board/flutter_drawing_board.dart';
 
 class App extends StatelessWidget {
   const App(this._drawingRepository, {super.key});
@@ -42,7 +42,7 @@ class __HomePageState extends State<_HomePage> {
     super.initState();
     // Simulate fetching data
     _fetchData();
-    _startAutoSave(context);
+    // _startAutoSave();
   }
 
   void _fetchData() {
@@ -54,15 +54,17 @@ class __HomePageState extends State<_HomePage> {
     });
   }
 
-  void _startAutoSave(context) {
-    final controller = context.watch<DrawingController>();
+  /*void _startAutoSave() {
     _autoSaveTimer = Timer.periodic(const Duration(seconds: 10), (timer) {
-      //jsonList: controller.getJsonList(),
-      context.read<DrawingBoardCubit>().save(
-            jsonList: controller.getJsonList(),
-          );
+      _save(); // Call the save method
     });
   }
+
+  void _save() {
+    final controller = context.read<DrawingController>();
+    final cubit = context.read<DrawingBoardCubit>();
+    cubit.save(jsonList: controller.getJsonList());
+  }*/
 
   @override
   void dispose() {
@@ -79,8 +81,8 @@ class __HomePageState extends State<_HomePage> {
                   CircularProgressIndicator(), // Display circular progress indicator
             ),
           )
-        : Scaffold(
-            body: const DrawingBoardPage(),
+        : const Scaffold(
+            body: DrawingBoardPage(),
           );
   }
 }
