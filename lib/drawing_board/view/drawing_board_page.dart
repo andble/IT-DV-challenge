@@ -78,16 +78,12 @@ class _Name extends StatelessWidget {
 
     return GestureDetector(
       onTap: () {
-        // Define what should happen when the name is tapped
-        // For example, you can navigate to a new screen, show a dialog, etc.
         _showNameInputDialog(context);
-
-        //BlocProvider.of<DrawingBoardCubit>(context).updateDrawingName('Changed name');
-        //print('Name tapped!');
       },
       child: Text(
         drawingName,
         style: const TextStyle(
+          fontSize: 24,
           decoration: TextDecoration
               .underline, // Optional: Add underline to indicate it's clickable
         ),
