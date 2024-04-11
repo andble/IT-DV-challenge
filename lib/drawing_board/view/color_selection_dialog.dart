@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ColorSelectionDialog extends StatelessWidget {
-  const ColorSelectionDialog({super.key});
+  const ColorSelectionDialog();
 
   static void show({
     required BuildContext context,
@@ -59,9 +59,11 @@ class _Dropdown extends StatelessWidget {
             ),
           ),
       ],
-      onChanged: (colorValue) {
-        final newColor = ColorSelection.colors
-            .firstWhere((color) => color.value == colorValue);
+      onChanged: (color) {
+        final newColor = ColorSelection.colors.firstWhere(
+          (element) => element.value == color,
+          orElse: () => selectedColor,
+        );
         context.read<DrawingBoardCubit>().changeColor(newColor);
       },
     );
