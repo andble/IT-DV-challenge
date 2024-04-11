@@ -110,9 +110,9 @@ class _Name extends StatelessWidget {
     );
 
     return SizedBox(
-      width: 200, // Adjust the width as needed
+      width: 900, // Adjust the width as needed
       child: Container(
-        padding: const EdgeInsets.fromLTRB(0, 10, 50, 0),
+        margin: const EdgeInsets.fromLTRB(0, 10, 50, 0),
         child: TextField(
           onChanged: (newName) {
             context.read<DrawingBoardCubit>().updateName(newName);
@@ -143,7 +143,12 @@ class _SaveButton extends StatelessWidget {
               jsonList: controller.getJsonList(),
             );
       },
-      child: const Icon(Icons.save),
+      child: const Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          Icon(Icons.save),
+        ],
+      ),
     );
   }
 }
@@ -174,7 +179,11 @@ class _ColorSelectionButton extends StatelessWidget {
           drawingBoardCubit: context.read<DrawingBoardCubit>(),
         );
       },
-      child: const Icon(Icons.palette),
+      child: const Row(
+        children: [
+          Icon(Icons.palette),
+        ],
+      ),
     );
   }
 }
