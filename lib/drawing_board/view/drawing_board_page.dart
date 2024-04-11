@@ -46,7 +46,7 @@ class _DrawingBoardViewState extends State<DrawingBoardView> {
     return Provider.value(
       value: _controller,
       child: const Scaffold(
-        backgroundColor: Colors.grey,
+        backgroundColor: Color.fromARGB(255, 255, 255, 255),
         body: SafeArea(
           child: Stack(
             children: [
@@ -94,6 +94,20 @@ class _SaveButton extends StatelessWidget {
             );
       },
       icon: const Icon(Icons.save),
+    );
+  }
+}
+
+class _EditText extends StatelessWidget {
+  const _EditText();
+
+  @override
+  Widget build(BuildContext context) {
+    final controller = context.watch<DrawingController>();
+
+    return IconButton(
+      onPressed: () {},
+      icon: const Icon(Icons.text_snippet),
     );
   }
 }

@@ -31,15 +31,31 @@ class AppDrawingBoard extends StatelessWidget {
           },
         ),
       ],
-      child: DrawingBoard(
-        controller: controller,
-        background: Container(
+      child: Container(
+        width: MediaQuery.of(context)
+            .size
+            .width, // Take up the entire screen width
+        height: MediaQuery.of(context)
+            .size
+            .height, // Take up the entire screen height
+        decoration: BoxDecoration(
+          color: Colors.white,
+          border: Border.all(),
+        ),
+        child: SizedBox(
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
-          color: Colors.white,
+          child: DrawingBoard(
+            controller: controller,
+            background: Container(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height,
+              color: Colors.white,
+            ),
+            showDefaultTools: true,
+            showDefaultActions: true,
+          ),
         ),
-        showDefaultTools: true,
-        showDefaultActions: true,
       ),
     );
   }
