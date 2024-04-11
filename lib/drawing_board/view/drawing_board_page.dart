@@ -10,6 +10,7 @@ class DrawingBoardPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    autosave(context);
     return BlocProvider(
       create: (context) => DrawingBoardCubit(
         context.read<DrawingRepository>(),
@@ -18,6 +19,8 @@ class DrawingBoardPage extends StatelessWidget {
     );
   }
 }
+
+void autosave(BuildContext context) {}
 
 class DrawingBoardView extends StatefulWidget {
   const DrawingBoardView({super.key});

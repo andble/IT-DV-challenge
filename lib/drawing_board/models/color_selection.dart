@@ -13,5 +13,6 @@ class ColorSelection {
     Colors.teal,
     Colors.brown,
     Colors.grey,
+    Colors.white,
   ];
 }
