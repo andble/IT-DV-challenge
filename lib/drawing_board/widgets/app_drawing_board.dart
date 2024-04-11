@@ -19,7 +19,9 @@ class AppDrawingBoard extends StatelessWidget {
             final drawing = state.drawing;
             controller
               ..addContents(drawing.contents)
-              ..setStyle(color: drawing.color);
+              ..setStyle(
+                color: drawing.color,
+              );
           },
         ),
         BlocListener<DrawingBoardCubit, DrawingBoardState>(
@@ -41,6 +43,12 @@ class AppDrawingBoard extends StatelessWidget {
         showDefaultTools: true,
         showDefaultActions: true,
         boardClipBehavior: Clip.none,
+        boardPanEnabled: false,
+        onPointerUp: (pue) => {
+          context.read<DrawingBoardCubit>().save(
+                jsonList: controller.getJsonList(),
+              ),
+        },
       ),
     );
   }
